@@ -112,7 +112,7 @@ class PermissionManager implements PermissionManagerInterface
                 if (count($segments) == 1) {
                     $label = trans("{$segments[0]}::module.module_name");
                 } elseif (count($segments) == 2) {
-                    $label = trans("${segments[0]}::{$segments[1]}.model_name");
+                    $label = trans("{$segments[0]}::{$segments[1]}.model_name");
                 } else {
                     $label = ucfirst(last($segments));
                 }
