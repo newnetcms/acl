@@ -31,7 +31,7 @@ return [
         ],
     ],
 
-    'default_avatar' => 'vendor/newnet-admin/img/default-avatar.png',
+    'default_avatar' => '/vendor/newnet-admin/img/default-avatar.png',
 
     'redirect_after_login' => function () {
         if (Route::has('admin.dashboard.index')) {
