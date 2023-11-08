@@ -161,7 +161,7 @@ class PermissionManager implements PermissionManagerInterface
                 }
 
                 $labelKey = "acl::permission.actions.{$action}";
-                $moduleLabelKey = "{$module}::permission.{$model}.{$action}";
+                $moduleLabelKey = "{$module}::{$model}.permission.{$action}";
                 $label = trans($moduleLabelKey);
                 if (trans()->has($moduleLabelKey)) {
                     $label = trans($moduleLabelKey);
