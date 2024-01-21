@@ -34,6 +34,10 @@ if (!function_exists('is_admin')) {
         /** @var \Newnet\Acl\Models\Admin $user */
         $user = Auth::guard('admin')->user();
 
+        if (!$user) {
+            return false;
+        }
+
         if ($user->is_admin) {
             return true;
         }
