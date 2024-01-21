@@ -2,6 +2,7 @@
 
 namespace Newnet\Acl\Models;
 
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -101,5 +102,16 @@ class Admin extends Authenticatable implements MustVerifyEmail
         }
 
         return config('cms.acl.default_avatar') ?: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOccAMAAf4BaqRcrJYAAAAASUVORK5CYII=';
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        ResetPasswordNotification::createUrlUsing(function ($notifiable, $token) {
+            return url(route('admin.password.reset', [
+                'token' => $token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false));
+        });
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
