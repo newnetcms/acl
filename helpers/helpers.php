@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Newnet\Acl\Models\Admin;
 use Newnet\Acl\Repositories\RoleRepositoryInterface;
 
 if (!function_exists('admin_can')) {
@@ -12,7 +13,7 @@ if (!function_exists('admin_can')) {
      */
     function admin_can($permission)
     {
-        /** @var \Newnet\Acl\Models\Admin $user */
+        /** @var Admin $user */
         $user = Auth::guard('admin')->user();
 
         if ($user && $user->hasPermission($permission)) {
@@ -31,7 +32,7 @@ if (!function_exists('is_admin')) {
      */
     function is_admin()
     {
-        /** @var \Newnet\Acl\Models\Admin $user */
+        /** @var Admin $user */
         $user = Auth::guard('admin')->user();
 
         if (!$user) {
@@ -68,7 +69,7 @@ if (!function_exists('current_admin')) {
     /**
      * Get current admin account
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|\Newnet\Acl\Models\Admin|null
+     * @return \Illuminate\Contracts\Auth\Authenticatable|Admin|null
      */
     function current_admin()
     {
@@ -80,7 +81,7 @@ if (!function_exists('get_current_admin')) {
     /**
      * Alias current_admin()
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|\Newnet\Acl\Models\Admin|null
+     * @return \Illuminate\Contracts\Auth\Authenticatable|Admin|null
      */
     function get_current_admin()
     {
@@ -149,6 +150,28 @@ if (!function_exists('get_acl_role_options')) {
             $options[] = [
                 'value' => $item->id,
                 'label' => $item->display_name ?: $item->name,
+            ];
+        }
+
+        return $options;
+    }
+}
+
+if (!function_exists('get_list_users_options')) {
+    /**
+     * Get List User Options
+     *
+     * @return array
+     */
+    function get_list_users_options()
+    {
+        $options = [];
+
+        $items = Admin::orderBy('name')->get();
+        foreach ($items as $item) {
+            $options[] = [
+                'value' => $item->id,
+                'label' => "{$item->name} - ({$item->email})",
             ];
         }
 

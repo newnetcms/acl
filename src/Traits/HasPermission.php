@@ -46,6 +46,9 @@ trait HasPermission
 
         $this->loadPermission();
 
+        $key = preg_replace('/\.store$/', '.create', $key);
+        $key = preg_replace('/\.update$/', '.edit', $key);
+
         return $this->allPermissions->contains($key);
     }
 }

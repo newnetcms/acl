@@ -150,7 +150,7 @@ class PermissionManager implements PermissionManagerInterface
                     continue;
                 }
 
-                if (in_array($action, ['store', 'show', 'update'])) {
+                if (in_array($action, ['store', 'update'])) {
                     continue;
                 }
 
