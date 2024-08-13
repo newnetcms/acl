@@ -26,8 +26,8 @@
 
     <style>
         .register-logo img{
+            max-width: 100%;
             max-height: 100px;
-            width: auto;
         }
     </style>
 </head>
