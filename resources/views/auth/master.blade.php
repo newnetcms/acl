@@ -36,7 +36,7 @@
     <div class="form-wrapper m-auto">
         <div class="form-container my-4">
             <div class="register-logo text-center mb-4">
-                <img src="{{ get_setting_media_url('logo_login', '', asset('vendor/newnet-admin/img/logo.png')) }}" alt="Logo">
+                <img src="{{ get_setting_media_url('logo_login') ?: get_setting_media_url('logo') ?: asset('vendor/newnet-admin/img/logo.png') }}" alt="Logo">
             </div>
 
             @yield('content')
