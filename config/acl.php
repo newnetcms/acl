@@ -1,5 +1,7 @@
 <?php
 
+use Newnet\Acl\AclRedirectManager;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -33,23 +35,9 @@ return [
 
     'default_avatar' => '/vendor/newnet-admin/img/default-avatar.png',
 
-    'redirect_after_login' => function () {
-        if (Route::has('admin.dashboard.index')) {
-            return route('admin.dashboard.index');
-        }
+    'redirect_after_login' => [AclRedirectManager::class, 'afterLogin'],
 
-        return config('core.admin_prefix');
-    },
+    'redirect_after_logout' => [AclRedirectManager::class, 'afterLogout'],
 
-    'redirect_after_logout' => function () {
-        return route('admin.login');
-    },
-
-    'redirect_if_authenticated' => function () {
-        if (Route::has('admin.dashboard.index')) {
-            return route('admin.dashboard.index');
-        }
-
-        return config('core.admin_prefix');
-    },
+    'redirect_if_authenticated' => [AclRedirectManager::class, 'ifAuthenticated'],
 ];
