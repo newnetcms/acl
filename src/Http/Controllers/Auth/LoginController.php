@@ -47,16 +47,17 @@ class LoginController extends Controller
     {
         $config = config('cms.acl.redirect_after_login', config('core.admin_prefix'));
 
-        return is_callable($config) ? $config() : $config;
+        return is_callable($config) ? call_user_func($config) : $config;
     }
 
     protected function loggedOut(Request $request)
     {
         $config = config('cms.acl.redirect_after_logout', route('admin.login'));
-        $redirectAfterLogout = is_callable($config) ? $config() : $config;
+
+        $redirect = is_callable($config) ? call_user_func($config) : $config;
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect($redirectAfterLogout);
+            : redirect($redirect);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 class AclRedirectManager
 {
-    public function afterLogin()
+    public static function afterLogin()
     {
         if (Route::has('admin.dashboard.index')) {
             return route('admin.dashboard.index');
@@ -15,12 +15,12 @@ class AclRedirectManager
         return config('core.admin_prefix');
     }
 
-    public function afterLogout()
+    public static function afterLogout()
     {
         return route('admin.login');
     }
 
-    public function ifAuthenticated()
+    public static function ifAuthenticated()
     {
         if (Route::has('admin.dashboard.index')) {
             return route('admin.dashboard.index');

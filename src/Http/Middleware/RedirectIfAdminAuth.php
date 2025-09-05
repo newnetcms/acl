@@ -20,7 +20,7 @@ class RedirectIfAdminAuth
         if (Auth::guard($guard)->check()) {
             $config = config('cms.acl.redirect_if_authenticated', config('core.admin_prefix'));
 
-            $redirect = is_callable($config) ? $config() : $config;
+            $redirect = is_callable($config) ? call_user_func($config) : $config;
 
             return redirect($redirect);
         }

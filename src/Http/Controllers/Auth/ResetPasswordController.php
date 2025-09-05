@@ -33,6 +33,6 @@ class ResetPasswordController extends Controller
     {
         $config = config('cms.acl.redirect_after_login', config('core.admin_prefix'));
 
-        return is_callable($config) ? $config() : $config;
+        return is_callable($config) ? call_user_func($config) : $config;
     }
 }
