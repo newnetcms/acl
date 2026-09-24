@@ -3,6 +3,7 @@
 namespace Newnet\Acl\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RoleRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class RoleRequest extends FormRequest
         $id = $this->route('role');
 
         return [
-            'name' => 'required|unique:roles,name,' . $id,
+            'name' => ['required', Rule::unique('roles', 'name')->ignore($id)],
         ];
     }
 }

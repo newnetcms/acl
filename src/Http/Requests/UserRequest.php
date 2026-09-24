@@ -3,6 +3,7 @@
 namespace Newnet\Acl\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UserRequest extends FormRequest
 
         return [
             'name'     => 'required',
-            'email'    => 'required|email|unique:admins,email,' . $id,
+            'email'    => ['required', 'email', Rule::unique('admins', 'email')->ignore($id)],
             'password' => $id ? '' : 'required',
         ];
     }
